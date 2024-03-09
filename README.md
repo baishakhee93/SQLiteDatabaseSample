@@ -1,4 +1,4 @@
-# room_database_sample
+# sqflite_database_sample
 A new Flutter project , This is a samaple of local databse and bloc state menagement.
 
 
