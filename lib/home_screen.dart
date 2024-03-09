@@ -8,13 +8,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _controller =
+  TextEditingController();
+  final TextEditingController _controllerDescription =
+  TextEditingController();
+
+
+  // Create FocusNode instances for each TextField in the dialog
+  final FocusNode _titleFocus = FocusNode();
+  final FocusNode _descriptionFocus = FocusNode();
+
+  @override
+  void dispose() {
+    // Dispose of the FocusNode instances when the widget is disposed
+    _titleFocus.dispose();
+    _descriptionFocus.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     super.initState();
     // Load tasks when the widget is first created
     Provider.of<TasksBloc>(context, listen: false).loadTasks();
   }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -121,12 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      final TextEditingController _controller =
-                      TextEditingController();
-                      final TextEditingController _controllerDescription =
-                      TextEditingController();
-
-                      return AlertDialog(
+                           return AlertDialog(
                         title: Align(child: Text('Add Task',style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFFA40B6E)),)),
                         content: Container(
                           height: MediaQuery.of(context).size.height / 5,
@@ -143,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       horizontal: 20),
                                   child: TextField(
                                     controller: _controller,
+                                    focusNode: _titleFocus,
                                     decoration:
                                     InputDecoration(labelText: 'Enter task'),
                                   ),
@@ -159,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       horizontal: 20),
                                   child: TextField(
                                     controller: _controllerDescription,
+                                    focusNode: _descriptionFocus,
                                     decoration: InputDecoration(
                                         labelText: 'Enter task description'),
                                   ),
@@ -192,6 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .addTask(title, description);
                               }
                               Navigator.of(context).pop(); // Close the dialog
+                              _controller.clear();
+                              _controllerDescription.clear();
                             },
                             child: Text('Add'),
                             style: ElevatedButton.styleFrom(
