@@ -1,16 +1,15 @@
 # room_database_sample
+A new Flutter project , This is a samaple of local databse and bloc state menagement.
 
-A new Flutter project.
 
-## Getting Started
+## Dependancies
+  sqflite: ^2.0.0+3
+  path_provider: ^2.0.5
+  provider:
 
-This project is a starting point for a Flutter application.
+## Screen Vedio
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/baishakhee93/RoomDatabaseSample/assets/50324744/ec5a44c9-41be-439d-b72a-436256631066
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
