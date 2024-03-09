@@ -15,83 +15,7 @@ class TaskInput extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 3.6,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFA40B6E),
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(70)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 40),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                child: Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                                backgroundColor: Colors.grey,
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Welcome',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Your Name',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          SizedBox(height: 10),
-                          Text(
-                            'Add Task',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 4.8),
-              child: Card(
+        Card(
                 elevation: 100,
                 margin: EdgeInsets.only(left: 20, right: 20),
                 shape: RoundedRectangleBorder(
@@ -166,22 +90,7 @@ class TaskInput extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height / 2,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: Card(
-                    elevation: 100,
-                    margin: EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
 
-                    child: TaskList(),
-                  )),
-            ),
           ],
         ),
       ),

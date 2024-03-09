@@ -14,7 +14,8 @@ class TaskList extends StatelessWidget {
         final task = bloc.tasks[index];
         return ListTile(
           title: Text(task.title),
-          subtitle: Text(task.description), // Displaying description below the title
+          subtitle: Text(task.description),
+          // Displaying description below the title
 
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
@@ -22,19 +23,116 @@ class TaskList extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  // Navigate to the edit screen, pass the task to edit
-                  // You can use Navigator.push or showModalBottomSheet for this
-                  // Example using Navigator.push:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditTaskScreen(task: task),
-                    ),
+                  // Show the dialog for editing the task
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      final TextEditingController _controller =
+                          TextEditingController();
+                      final TextEditingController _controllerDescription =
+                          TextEditingController();
+
+                      // Set the initial values of controllers to the existing task data
+                      _controller.text = task.title;
+                      _controllerDescription.text = task.description;
+
+                      return AlertDialog(
+                        title: Align(
+                            child: Text(
+                          'Edit Task',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFA40B6E)),
+                        )),
+                        content: Container(
+                          width: double.maxFinite,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Card(
+                                color: Colors.white,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(60),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: TextField(
+                                    controller: _controller,
+                                    decoration: InputDecoration(
+                                        labelText: 'Enter task'),
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                color: Colors.white,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(60),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: TextField(
+                                    controller: _controllerDescription,
+                                    decoration: InputDecoration(
+                                        labelText: 'Enter task description'),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: Text('Cancel'),
+                            style: ElevatedButton.styleFrom(
+                            primary: Color(0xFFB4051A),
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60),
+                            ),
+                            ),
+
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Add your logic for updating the task here
+                              final title = _controller.text.trim();
+                              final description =
+                                  _controllerDescription.text.trim();
+                              if (title.isNotEmpty) {
+                                // Call the updateTask method from your bloc to update the task
+                                Provider.of<TasksBloc>(context, listen: false)
+                                    .updateTask(task.copyWith(
+                                        title: title,
+                                        description: description));
+                              }
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: Text('Update'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF03864B),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),
               IconButton(
-                icon: Icon(Icons.delete),
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
                 onPressed: () {
                   // Show a confirmation dialog before deleting
                   showDialog(
@@ -42,7 +140,8 @@ class TaskList extends StatelessWidget {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text("Delete Task"),
-                        content: Text("Are you sure you want to delete this task?"),
+                        content:
+                            Text("Are you sure you want to delete this task?"),
                         actions: [
                           TextButton(
                             child: Text("Cancel"),
@@ -53,7 +152,8 @@ class TaskList extends StatelessWidget {
                           TextButton(
                             child: Text("Delete"),
                             onPressed: () {
-                              bloc.deleteTask(task.id!); // Assuming task.id is non-nullable
+                              bloc.deleteTask(
+                                  task.id!); // Assuming task.id is non-nullable
                               Navigator.of(context).pop();
                             },
                           ),
