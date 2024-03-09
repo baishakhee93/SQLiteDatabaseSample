@@ -4,7 +4,9 @@ A new Flutter project , This is a samaple of local databse and bloc state menage
 
 ## Dependancies
   sqflite: ^2.0.0+3
+  
   path_provider: ^2.0.5
+  
   provider:
 
 ## Screen Vedio
